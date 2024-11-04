@@ -55,7 +55,9 @@ Osoba chcąca zakupić produkt na aukcji.
 * ...
 
 [Kupujący](#ac2)
-* ...
+* [UC2](#uc2): Zaoferowanie kwoty za produkt na aukcji
+* [UC3](#uc3): Wygranie aukcji
+* [UC4](#uc4): Przekazanie należności
 
 ---
 <a id="uc1"></a>
@@ -79,20 +81,67 @@ Osoba chcąca zakupić produkt na aukcji.
 ---
 
 <a id="uc2"></a>
-### UC2: ...
+### UC2: Zaoferowanie kwoty za produkt na aukcji
 
-**Aktorzy:** [Sprzedający](#ac1), [Kupujący](#ac2), ...
+**Aktorzy:** [Sprzedający](#ac1), [Kupujący](#ac2)
 
 **Scenariusz główny:**
-1. ...
+1. [Kupujący](#ac2) znajduje ofertę od [Sprzedającego](#ac1)
+2. System sprawdza czy aukcja jest aktywna
+3. [Kupujący](#ac2) podaje kwotę za którą chce dołączyć do aukcji
+4. System weryfikuje poprawność [reguły](#br1)
 
 **Scenariusze alternatywne:** 
 
-1.A. ...
-* 4.A.1. ...
+2.A. Aukcja jest nieaktualna/nieaktywna
+* 2.A.1. System informuje o wcześniejszym rozstrzygnięciu aukcji
+* 2.A.2. Przejdź do kroku 1.
+4.A. Podana kwota jest za niska
+* 4.A.1. System informuje o braku poprawności [reguły](#br1)
+* 4.A.2. Przejdź do kroku 3.
 
 ---
 
+<a id="uc3"></a>
+### UC3: Wygranie aukcji
+
+**Aktorzy:** [Kupujący](#ac2)
+
+**Scenariusz główny:**
+1. Upływa czas aukcji.
+2. System sprawdza poprawność [reguły](#br2).
+3. Aukcja się zamyka.
+4. [Kupujący](#ac2) zostaje poinformowany o wygraniu aukcji.
+
+**Scenariusze alternatywne:** 
+
+2.A.1. [Kupujący](#ac2) nie jest wygranym aukcji.
+* 2.A.1.1. Cel się kończy.
+2.A.2. Nikt nie licytował.
+* 2.A.2.1. Aukcja zostaje zakończona bez sprzedaży.
+
+---
+
+<a id="uc4"></a>
+### UC4: Przekazanie należności
+
+**Aktorzy:** [Sprzedający](#ac1), [Kupujący](#ac2)
+
+**Scenariusz główny:**
+1. [Kupujący](#ac2) odebrał informację o wygraniu aukcji i przechodzi do płatności.
+2. [Kupujący](#ac2) dokonuje płatności na stronie.
+3. System sprawdza poprawność [reguły](#br3).
+4. Z konta [kupującego](#ac2) pobrane zostaje równowartość kwoty za wylicytowany produkt.
+5. [Sprzedający](#ac1) otrzymuje płatność.
+
+**Scenariusze alternatywne:** 
+
+3.A.1 Płatność nie powiodła się
+* 3.A.1.1 Wróć do punktu 2.
+3.A.2 Kupujący nie dokonał płatności.
+* 3.A.2.1
+
+---
 ## Obiewkty biznesowe (inaczje obiekty dziedzinowe lub informatycjne)
 
 ### BO1: Aukcja
